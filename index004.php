@@ -194,7 +194,7 @@
                             <p style="color:#000;"><?php echo $nombreModulo[6] ?></p>
                         </button>
                     </div>
-                            </div>
+                  </div>
                 </section>
             </div>
 	</div>
