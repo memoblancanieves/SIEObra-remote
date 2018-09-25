@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="listas2.js"></script>
+    <script src="validar_extension.js"></script>
+	<title>SIObras-Reportes</title>
+
+    <!-- VALIDACIONES -->
+    <script src="validacion_reportes.js"></script>
+</head>
+<body>
+	<div class="container" id="container">
+        <div class="panel panel-primary borde-color">
+
+            <!--TITULO DE ALTAS DE OBRAS-->
+            <div class="row">
+                <div class="col-md-2" style="background-color: #2C5234; border-color: #2C5234;
+                    color: #ffff; margin-top: 15px; text-align: center;">
+                    <h4>Reportes</h4>
+                </div>
+            </div>
+               
+    
+            
+            <div class="row" style="margin-bottom: 15px;">
+                <!--TITULO DE SIEObras-->
+                <div class="logo" style="text-align: center;">
+                    <img src="imagenes/10_uaem_movHNormal.png" alt="Imagen no encontrada" style="max-width: 200px;">
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <br>
+                    <h1>SIEObra</h1>
+                    <h3>Sistema de Información Estadistica de Obra Universitaria</h3>
+                </div>
+                            
+                <!--LINEA DE COLORES-->
+                <div style="margin: 0px 180px;">
+                    <div class="panel-heading col-md-4" style="background-color: #2C5234; border-color: #2C5234; margin-bottom: 35px; padding: 4px;" >
+                    </div>
+                    
+                    <div class="panel-heading col-md-8" style="background-color: #9C8412;border-color: #9C8412; margin-bottom: 35px; padding: 4px;" >              
+                    </div>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="margin: 0px 35px;">
+                    <a href="index.php"><img src="imagenes/regresar.png" alt="imagen">Regresar</a>
+                </div>
+            </div>
+
+            
+            <!--COMO DESEA REALIZAR LA BUSQUEDA-->
+            <div class="panel-body animated bounceIn" id="panel-principal" style="display: block;">
+                <!--COMO DESEA REALIZAR LA CONSULTA-->
+                <div class="row" id="capa" style="display: block;  margin: 25px 0px;">
+                    <div class="col-md-12" style="text-align: left; color: #1976d2">
+                        <h2>Filtro de busqueda</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control form-control-lg" name="opc_buscar" id="opc_buscar">
+                            <option value="0">Seleccionar una opción</option>
+                            <option value="1">Nombre de la obra</option>
+                            <option value="2">Numero de contrato</option>
+                            <option value="3">Espacio beneficiado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--NOMBRE DE LA OBRA-->
+                <div class="row animated" id="capa1" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Nombre de la obra</h2>
+                    </div>
+                    <!--NOMBRE DE LA OBRA-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="nombreObra" name="nombreObra" placeholder="Ingresa el nombre de la obra" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(1)">Regresar</button>
+                    </div>
+                </div>
+                
+                <!--NUMERO DE CONTRATO-->
+                <div class="row animated" id="capa2" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Numero de contrato</h2>
+                    </div>
+                    <!--NUMERO DE CONTRATO-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="n_Contrato" name="n_Contrato" placeholder="Ingresa numero de contrato" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(2)">Regresar</button>
+                    </div>
+                </div>
+
+                <!--ESPACIO BENEFICIADO-->
+                <div class="row animated" id="capa3" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Espacio Beneficiado</h2>
+                    </div>
+                    <!--ESPACIO BENEFICIADO-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="espacio_B" name="espacio_B" placeholder="Ingrese nombre del espacio beneficiado" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(3)">Regresar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--TABLA DE CONSULTA-->
+            <div class="animated bounceIn" id="datos" style="margin:25px;">
+                
+            </div>
+            <!--Formulario para dar de alta un nuevo reporte-->
+            <br><br>
+            <div style="margin: 0px 20px;">
+
+                <div id="miFormReportes2">
+                         <div id="ocultar1" style="display: none">
+                            <div class="row" style="margin: 0px 12px;">
+                                 <div class="col-md-12">
+                                     <h4>Nombre de la obra:</h4>
+                                 </div>
+                                 <div class="col-md-12">
+                                     <h3 id="NombreObra" style="margin: 0px;">Ampliacion en tercer nivel para laboratorio de genetica, humana, facultadad de medicina</h3>
+                                 </div>
+                             </div>
+                             
+                             <div class="row" style="margin: 18px 12px;">
+                                 <div class="col-sm-2">
+                                     <h4>Supervisor:</h4>
+                                 </div>
+                                 <div class="col-sm-10">
+                                     <h4 id="supervisor"></h4>
+                                 </div>
+                             </div> 
+                         </div>
+                    
+                    <!--TABLA DE CONSULTA DE REPORTES-->
+                    <div class="animated bounceIn" id="consultaReportes" style="margin:25px;">
+                            
+                    </div>
+
+                    <div class="container" id="generarPDF" style="margin: 45px 0px; display: none;">
+                        <form action="new_pdf2.php" method="POST">
+                                <h4>Generar reporte impreso de esta obra</h4>
+                                <div class="row">
+                                            <!--FECHA DE INICIO-->
+                                            <div class="col-md-4">
+                                                <label for="inicio">Inicio</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-calendar-plus-o"></span>
+                                                        </span>
+                                                        <input type="date" name="fechaInicio" id="fechaInicio">
+                                                    </div>
+                                            </div>
+                                            <!--FECHA DE TERMINO-->
+                                            <div class="col-md-4">
+                                                <label for="fin">Termino</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-calendar-check-o"></span>
+                                                        </span>
+                                                        <input type="date" name="fechaTermino" id="fechaTermino">
+                                                    </div>
+                                            </div>
+                                            
+                                            <!--BOTON DE ENVIAR-->
+                                            <div class="col-md-4" style="margin-top: 15px">
+                                                <button type="submit"  class="btn btn-success">Generar Reporte</button>
+                                            </div>
+                                            <input type="text" name="idObraGenerar" id="idObraGenerar" style="display: none">
+                                </div>
+                            </form>
+                    </div>
+                    
+                </div>
+
+                 <form id="miFormReportes" enctype="multipart/form-data" style="display: none">
+                     <div id="ocultar" style="margin: 15px 30px; display: none" class="panel panel-primary">
+                         <div class="panel-heading">
+                             <h4>Agregar un nuevo reporte</h4>
+                         </div>
+                         <div class="panel-body" style="padding-bottom: 0px;">
+                            <br><br>
+                             <div class="row">
+                                <!--NoReporte-->
+                                 <div class="col-md-2" style="padding: 0px; text-align: right;">
+                                     <label for="NoReporte">Reporte Semanal</label>
+                                 </div>
+                                 <div class="col-md-1">
+                                     <input type="text" id="NoReporte" name="NoReporte" style="max-width: 100%; text-align: center;">
+                                 </div>
+                                <!--AvanceFisico--> 
+                                 <div class="col-md-2" style="padding: 0px; text-align: right;">
+                                     <label for="AvanceFisico">Avance Fisico</label>
+                                 </div>
+                                 <div class="col-md-1">
+                                     <input type="text" id="AvanceFisico" name="AvanceFisico" style="max-width: 100%;">
+                                 </div>
+                                 <div class="col-md-1" style="padding: 0px; text-align: left;">
+                                     <label for="">%</label>
+                                 </div>
+                                 <!--AvanceFinanciero-->
+                                 <div class="col-md-2" style="padding: 0px; text-align: right;">
+                                     <label for="AvanceFinanciero">Avance Financiero</label>
+                                 </div>
+                                 <div class="col-md-1">
+                                     <input type="text" id="AvanceFinanciero" name="AvanceFinanciero" style="max-width: 100%;">
+                                 </div>
+                                 <div class="col-md-1" style="padding: 0px; text-align: left;">
+                                     <label for="">%</label>
+                                 </div>
+                             </div>
+                             <br><br>
+                            
+                             
+                             
+                             
+                             
+                             <br><input type="text" id="xId" style="display: none" name="id">
+                             <div class="row">
+                                 <div class="col-md-12" style="padding: 0px;">
+                                     <button type="submit" id="submit" class="btn btn-primary btn-lg btn-block" style="border-radius:0px; background-color: #337ab7; border-color: #337ab7;">Enviar</button>
+                                 </div>
+                             </div>
+                            </div>
+                         </div>
+                 </form>
+
+
+            </div>
+            <div class="cargando" id="cargando" style="text-align: center; display: none">
+                <img src="imagenes/cargando.gif" alt="No se encontro la imagen">
+            </div>
+            
+        </div>
+
+
+
+        </div><!-- DESDE AQUI COMIENZA LA VENTANA MODAL DE LA OPCION DE EDITAR -->
+        <div class="modal fullscreen-modal fade" id="VentanaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 2%">
+             <div class="modal-dialog" role="document">
+                <div class="modal-content" style="border:none;">  
+                   <div class="col-md-12">
+                        <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                            <!-- Indicadores SE TIENEN QUE CARGAR DEPENDIENDO DE LAS FOTOS-->
+                            <ol class="carousel-indicators" id="indicadores">
+                                <li data-target="#carousel-1" data-slide-to="0" class="active" ></li> 
+                            </ol>
+                            <!-- contenedor de los slide SE TIENE QUE CARGAR DEPEDIENDO DE LAS FOTOS -->
+                            
+                            <div class="carousel-inner" role="listbox" id="listaImagenes">
+                                <!-- #1 -->
+                                <div class="item  active">
+                                    <img src="imagenes/1.jpg" class="img-responsive" alt=""> <!-- style="width:822px;height:322px;" --> <!-- YA ME QUEDO CLARO POR QUE TODAS LAS IMAGENES MISMO TAMAÑO -->
+                                    <div class="carousel-caption">
+                                        <!-- <h3>Este es nuestro Slide #1</h3>
+                                        <p>Lorem ipsum dolor sit amet.</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Controles -->
+                            <a href="#carousel-1" class="left carousel-control" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                            <a href="#carousel-1" class="right carousel-control" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div><!--AQUI TERMINA LA VENTANA MODAL DE LA OPCION DE EDITAR-->
+     </div>
+</body>
+    <!-- JQuery           -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- JS de Bootstrap  -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+
+    var SId = null;
+     $(document).ready(function()
+    {
+        consultar();
+        validarPDF();
+    });
+
+    //CONSULTAR LAS FOTOS DE LOS REPORTES 
+    function cargarImagenes(id_reporte)
+    {
+        $.ajax({
+            url: 'consulta_fotos.php',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {id: id_reporte},
+        })
+        .done(function(datos) {
+            console.log("consulta_fotos.php bien");
+            for (var i = 0; i<datos.length; i++) 
+            {
+                if(i=="0")
+                {
+                    
+
+                    var nuevo ="<div class='item  active'>"+ 
+                               "<img src='"+datos[i]+"' class='img-responsive' alt=''>"+
+                                    "<div class='carousel-caption'>"+
+                                        
+                                    "</div>"+
+                                "</div>";
+                    console.log("Crenado la primera imgaen: "+nuevo);
+                    var nuevo_indicadores="<li data-target='#carousel-1' data-slide-to='0' class='active' ></li>";
+                    
+                }
+                else
+                {
+                    nuevo=nuevo+"<div class='item'>"+ 
+                               "<img src='"+datos[i]+"' class='img-responsive' alt=''>"+
+                                    "<div class='carousel-caption'>"+
+                                        
+                                    "</div>"+
+                                "</div>";
+                    console.log("Crenado las demas imagenes: "+nuevo);
+                    nuevo_indicadores=nuevo_indicadores+"<li data-target='#carousel-1' data-slide-to='0' ></li>";
+                    
+
+                }
+            }
+            document.getElementById("listaImagenes").innerHTML=nuevo;
+            document.getElementById("indicadores").innerHTML=nuevo_indicadores;
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    }
+
+    //CUANDO EL USUARIO ELIJE UNA OBRA
+    $.fn.extend({
+  animateCss: function(animationName, callback) {
+    var animationEnd = (function(el) {
+      var animations = {
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'mozAnimationEnd',
+        WebkitAnimation: 'webkitAnimationEnd',
+      };
+
+      for (var t in animations) {
+        if (el.style[t] !== undefined) {
+          return animations[t];
+        }
+      }
+    })(document.createElement('div'));
+
+    this.addClass('animated ' + animationName).one(animationEnd, function() {
+      $(this).removeClass('animated ' + animationName);
+
+      if (typeof callback === 'function') callback();
+    });
+
+    return this;
+  },
+});
+
+    var animationEnd = (function(el) {
+      var animations = {
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'mozAnimationEnd',
+        WebkitAnimation: 'webkitAnimationEnd',
+      };
+
+      for (var t in animations) {
+        if (el.style[t] !== undefined) {
+          return animations[t];
+        }
+      }
+    })(document.createElement('div'));
+
+    function llenar(id)
+    {
+        SId=id;
+        
+        document.getElementById("idObraGenerar").value=id;
+        //REMOVEMOS LA ANIMACION CON LA QUE INICIA LA PAGINA PARA PONER UNA ANIMACION DE SALIDA
+        $('#panel-principal').removeClass("bounceIn");
+        $('#datos').removeClass("bounceIn");
+
+        //GREGAMOS LAS ANIMACIONES DE SALIDA
+        $('#datos').addClass('bounceOut');
+        $('#panel-principal').addClass('bounceOut').one(animationEnd, function(){
+          $("#miFormReportes").css("display", "block");
+
+          //OCULTAMOS FILTRO DE BUSQUEDA Y TABLA PARA QUE NO OCUPEN ESPACIO EN EL NAVEGADOR
+          $('#panel-principal').css("display", "none");
+          $('#datos').css("display", "none");
+
+          $('#panel-principal').removeClass("bounceOut");
+          $('#datos').removeClass("bounceOut");
+          window.scrollTo(0,0);
+          datosReporte();
+        });
+    }
+
+    function datosReporte()
+    {
+        $.ajax({
+            url: 'datosReporte.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {id: SId},
+        })
+        .fail(function(datos) {
+            console.log("error: "+datos);
+        })
+        .always(function(datos) {
+            document.getElementById("NombreObra").innerHTML=datos.Nombre;
+            document.getElementById("supervisor").innerHTML=datos.Supervisor;
+            document.getElementById("NoReporte").value=(parseInt(datos.No) + parseInt(1));
+            tablaReportes(SId);
+        });
+        
+    }
+
+    function tablaReportes(id)
+    {
+        $.ajax({
+            url: 'consulta_reportes2.php',
+            type: 'POST',
+            dataType: 'html',
+            data: {id: id},
+        })
+        .done(function(respuesta) 
+        {
+            $("#consultaReportes").html(respuesta);
+            document.getElementById("ocultar1").style.display="block";
+            if(respuesta  == "No se han registrado reportes")
+            {
+                document.getElementById("generarPDF").style.display="none";
+                
+            }
+            else
+            {
+                document.getElementById("generarPDF").style.display="block";
+            }
+
+        })
+        .fail(function() 
+        {
+            console.log("error al tratar de cargar la tablaReportes()");
+        });
+    } 
+    //VISTA PREVIA DE LAS IMAGENES QUE SE VAN A CARGAR
+    /*
+    $(function ()
+    {
+        $("#ReporteFotografico").on("change", function(){
+            $("#vistaPrevia").html('');
+            var archivos  = document.getElementById("ReporteFotografico").files;
+            var navegador = window.URL || window.webkitURL;
+            //Recorrer los archivos
+            $("#vistaPrevia").append("<h4 style='color:green'>Vista previa</h4>")
+            for(i=0; i<archivos.length; i++)
+            {
+                var size = archivos[i].size;
+                var type = archivos[i].type;
+                var name = archivos[i].name;
+                if(size > 1024*1024)
+                {
+                    $("#vistaPrevia").append("<p style='color:red'> El archivo "+name+" supera el maximo permitido 1MB</p>");
+                }
+                else if(type !='image/jpeg' && type != 'image/jpg' && type != 'image/png' && type != 'image/gif')
+                {
+                    $("#vistaPrevia").append("<p style='color:red'> El archivo "+name+" no es del tipo de imagen permitido</p>");
+                }
+                else
+                {
+                    var objeto_url = navegador.createObjectURL(archivos[i]);
+                    $("#vistaPrevia").append("<img src='"+objeto_url+"' width='100px;' height='100px;' alt='No se encontro'>")
+                }
+            }
+        })
+    })*/
+
+    function consultar(consulta, opc)//CONSULTA A LA BD TODAS LAS OBRAS
+    {
+        $.ajax({
+            url: 'consulta_buscar.php',
+            type: 'POST',
+            dataType: 'html',
+            data: {consulta: consulta, opc : opc},
+        })
+        .done(function(respuesta) 
+        {
+            $("#datos").html(respuesta);
+
+        })
+        .fail(function() 
+        {
+            console.log("error");
+        });
+        
+    }
+
+    $(opc_buscar).change(function()//PARA MOSTRAR EL FITRO DE BUSQUEDA SELECCIONADO
+    {
+
+        var opc =document.getElementById("opc_buscar").value;
+        if(opc != 0)
+        {
+            //Removemos la clase con la que inicia
+            $("#capa").removeClass("bounceInUp");
+            //Agregamos la clase con la que sale
+            $("#capa").addClass("bounceOutLeft");
+            //Ocultamos para que no ocupe espacio
+            $("#capa").css("display", "none");
+            switch(opc)
+            {
+                case '1':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa1").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa1").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa1").addClass("bounceInRight");
+
+                break;
+
+                case '2':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa2").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa2").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa2").addClass("bounceInRight");
+                break;
+
+                case '3':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa3").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa3").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa3").addClass("bounceInRight");
+                break;
+            }
+        }
+            
+    });
+
+    function mostrar_opc(opc)//PARA REGRESAR AL FITRO DE BUSQUEDA ANTERIOR 
+    {
+        switch(opc)
+        {
+            case 1:
+                //Removemos la clase con la que inicia
+                $("#capa1").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa1").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa1").css("display", "none");
+            break;
+
+            case 2:
+                //Removemos la clase con la que inicia
+                $("#capa2").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa2").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa2").css("display", "none");
+            break;
+
+            case 3:
+                //Removemos la clase con la que inicia
+                $("#capa3").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa3").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa3").css("display", "none");
+            break;
+
+        }
+        //Mostramos el menu de opc
+        $("#capa").css("display", "block");
+        $("#capa").removeClass("bounceOutLeft");
+        $("#capa").addClass("bounceInLeft");
+
+        //RESETEAMOS EL VALOR DEL SELECT
+        $('#opc_buscar').val($('#opc_buscar > option:first').val());
+        consultar();
+    }
+
+     //LIKE NOMBRE DE LA OBRA
+    $(document).on('keyup','#nombreObra', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"1");
+        }
+        else
+        {
+            consultar();
+        }
+    });
+
+    //LIKE NUMERO DE CONTRATO 
+    $(document).on('keyup','#n_Contrato', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"2");
+        }
+        else
+        {
+            consultar();
+        }
+    });
+
+
+    //LIKE ESPACIO BENEFICIADO 
+    $(document).on('keyup','#espacio_B', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"3");
+        }
+        else
+        {
+            consultar();
+        }
+    });
+    
+
+     $("#miFormReportes").on("submit", function(e)//FUNCION AJAX PARA DAR DE ALTA UN NUEVO REPORTE
+    {
+
+        e.preventDefault();//evita que se recarge la pagina
+        document.getElementById("xId").value=SId;
+        $("#xId").css("display", "block");
+        var formData = new FormData(document.getElementById("miFormReportes"));
+        $("#xId").css("display", "none");
+       
+        
+       $.ajax({
+                    url:"altaReportes.php",
+                    type:"POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    encode:true,
+                    processData: false,
+                    beforeSend: function()
+                    {
+                        
+                        $("#ocultar").css("display", "none");
+                        $("#cargando").css("display", "block");
+                    },
+                    success: function(datos)
+                    {
+                        
+                        console.log("Bien:"+datos);
+                        document.getElementById("miFormReportes").reset();
+                        $("#ocultar").css("display", "block");
+                        $("#cargando").css("display", "none");
+                        tablaReportes(SId);
+                                                   
+                    },
+                    error: function(XMLHttpRequest,data)
+                    {
+                        $("#miFormReportes").css("display", "block");
+                        $("#ocultar").css("display", "block");
+                        $("#cargando").css("display", "none");
+                        console.log("Mal :( "+XMLHttpRequest.responseText+" data: "+data);
+                    } 
+                });
+        
+    });
+</script>

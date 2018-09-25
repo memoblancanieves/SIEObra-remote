@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <!--TIPO DE LETRA PARA TITULOS-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--Estilos CSS-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="listas.js"></script>
+
+    <!-- Titulo -->   
+    <title>Altas de obras</title>
+
+    <!-- JS -->
+    <script src="validacion_PDF.js"></script>
+    <!--VALIDAR EL NUMERO DE CONTRATO NO SEA EL MISMO-->
+    <script src="noContrato.js"></script>
+    <script src="consulta_EspaciosB.js"></script>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="panel panel-primary borde-color">
+
+            <!--TITULO DE ALTAS DE OBRAS-->
+            <div class="row">
+                <div class="col-md-2" style="background-color: #2C5234; border-color: #2C5234;
+                    color: #ffff; margin-top: 15px; text-align: center;">
+                    <h4>Alta de obras</h4>
+                </div>
+            </div>
+        
+
+            
+            <div class="row" style="margin-bottom: 15px;">
+                <!--TITULO DE SIEObras-->
+                <div class="logo" style="text-align: center;">
+                    <img src="imagenes/10_uaem_movHNormal.png" alt="Imagen no encontrada" style="max-width: 200px;">
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <br>
+                    <h1>SIEObra</h1>
+                    <h3>Sistema de Información Estadistica de Obra Universitaria</h3>
+                </div>
+                
+                <!--LINEA DE COLORES-->
+                <div style="margin: 0px 180px;">
+                    <div class="panel-heading col-md-4" style="background-color: #2C5234; border-color: #2C5234; margin-bottom: 35px; padding: 4px;" >
+                    </div>
+                    
+                    <div class="panel-heading col-md-8" style="background-color: #9C8412;border-color: #9C8412; margin-bottom: 35px; padding: 4px;" >              
+                    </div>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="margin: 0px 35px;">
+                    <a href="index.php"><img src="imagenes/regresar.png" alt="imagen">Regresar</a>
+                </div>
+            </div>
+            <!--DESDE AQUI COMIENZA EL FORMULARIO -->
+
+            <div class="panel-body" id="panel-principal" style="display: block;">
+                <form  id="miFormAltas" enctype="multipart/for-data"  >    
+                    <div class="col-md-12">
+                        <br>
+                        <div class="row espacio">
+                            <!--NOMBRE DE LA OBRA-->
+                            <div class="col-md-8 form-group">
+                                <label for="n_obra">Nombre de la obra</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                			<span class="fa fa-building-o"></span>
+                                    </span>
+                                    <input type="text" class="form-control" id="n_obra" name="n_obra" placeholder="Ingrese el nombre de la obra" required="Campo obligatorio" maxlength="200">
+                                </div>
+                            </div>
+                            <!--NO. CONTRATRO-->
+                            <div class="col-md-4 form-group">
+                                <label for="n_contrato">No. Contrato</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                			<span class="fa fa-hashtag"></span>
+                                    </span>
+                                    <input type="text" class="alert  form-control" id="n_contrato" name="n_contrato" value="UAEM/" required="Campo obligatorio" onchange="validar_numero();">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Descripcion de la obra -->
+                        <div class="row espacio">
+                                <div class="col-md-12" style="margin: 10px 0px;">
+                                    <label for="descripcion">Descripción de la Obra</label>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="6" required="Campo obligatorio" style="resize: vertical;" maxlength="500"></textarea>
+                                </div>
+                        </div>
+
+                        <!--AQUI VA EL ESPACIO BENEFICIADO Y LA OPCION DE AGREGAR UN NUEVO ESPACIO-->
+                        <div class="row espacio">
+                           <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Espacio Beneficiado
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-8 form-group">
+                                        
+                                           <label for="beneficiado">Nombre</label>
+                                           <div class="input-group">
+                                               <span class="input-group-addon">
+                                                       <span class="fa fa-caret-square-o-down"></span>
+                                               </span>
+                                               <select class="form-control grupos" id="beneficiadoSelect" name="beneficiado">
+                                                   <option value="0">Seleccione una opcion</option>
+                                               </select>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right;">
+                                           <br>
+                                           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#VentanaModal3">Agregar un nuevo Espacio Beneficiado</button>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                            <!--NUMERO DE PERSONAS BENEFICIADAS ALUMNOS H/M Y PROFESORES H/M-->
+                        <div class="row espacio">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Beneficiados</div>
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="col-md-6">
+                                                <!--ALUMNOS-->
+                                                <h5>Alumnos</h5>
+                                                <div class="col-md-4">
+                                                    <label for="">Hombres</label>
+                                                    <input type="number" id="alumnosh" name="alumnosh" style="width: 4em;" required="Campo obligatorio">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="">Mujeres</label>
+                                                    <input type="number" id="alumnosm" name="alumnosm" style="width: 4em;" required="Campo obligatorio">
+                                                </div>
+                                                <div class="col-md-4" style="color: #fff">-</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!--PROFESORES-->
+                                                <h5>Profesores</h5>
+                                                <div class="col-md-4">
+                                                    <!--HOMBRES-->
+                                                    <label for="">Hombres</label>
+                                                    <input type="number" id="profesoresh" name="profesoresh" style="width: 4em;" required="Campo obligatorio">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--MUJERES-->
+                                                    <label for="">Mujeres</label>
+                                                    <input type="number" id="profesoresm" name="profesoresm" style="width: 4em;" required="Campo obligatorio">
+                                                </div>
+                                                <div class="col-md-4" style="color: #fff">-</div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <!--MONTO CONTRATADO-->
+                        <div class="row espacio" style="margin:25px 0px;">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Montos
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-4 form-group">
+                                            <label for="importeAutorizado">Importe Autorizado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-money"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="importeAutorizado" name="importeAutorizado" placeholder="Ingrese el Importe Autorizado" required="Campo obligatorio" pattern="^[0-9]+(\.[0-9]+)?$">
+                                                </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="importeContratado">Importe Contratado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-money"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="importeContratado" name="importeContratado" placeholder="Ingrese el Importe Contratado" required="Campo obligatorio" pattern="^[0-9]+(\.[0-9]+)?$">
+                                                </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="importeEjercido">Importe Ejercido</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-money"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="importeEjercido" name="importeEjercido" placeholder="Ingrese el Importe Ejercido" required="Campo obligatorio" pattern="^[0-9]+(\.[0-9]+)?$">
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--ESTATUS DE LA OBRA Y OBSERVACIONES DEL ESTATUS-->
+                        <div class="row espacio">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Estatus de la Obra
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-4 form-group">
+                                            <br>
+                                            <label for="tipoObra">Tipo de Obra</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-caret-square-o-down"></span>
+                                                </span>
+                                                <select class="form-control grupos" id="tipoObra" name="tipoObra">
+                                                    <option value="0">Seleccione una opcion</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <br>
+                                            <label for="estadoObra">Estado de la Obra</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-caret-square-o-down"></span>
+                                                </span>
+                                                <select class="form-control grupos" id="estadoObra" name="estadoObra">
+                                                    <option value="0">Seleccione una opcion</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" style="margin: 10px 0px;">
+                                            <label for="observacionesEstatus">Observaciones</label>
+                                            <textarea class="form-control" id="observacionesEstatus" name="observacionesEstatus" rows="2" required="Campo obligatorio" style="resize: vertical;" maxlength="500"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row espacio">
+                            <!--TIPO DE RECURSO-->
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Tipo de recursos</div>
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="col-md-12 capa1">
+                                                <table class="table table-hover my-1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col"> - </th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="t_recurso">
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                
+                                            </div>
+                                            
+                                            <div class="col-md-8">
+                                                <label for="monto">Otro</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                							<span class="fa fa-suitcase"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" name="nombre" id="otro1" placeholder="Ingrese otro tipo de recurso">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="btnRecursos">
+                                                <div style="color:#fff; padding-bottom: 0.4em;">-</div>
+                                                <button type="button" id="btnAgregar" class="btn btn-success media-middle" name="btnIngresar" onclick="otro()">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--TIPO DE OBRA-->
+                            <div class="col-md-6 ">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Tipo de obra</div>
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="col-md-12 capa2">
+                                                <table class="table my-1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col"> - </th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="t_obra">
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div style="color: #fff">-</div>
+                                            <div class="col-md-8">
+                                                <label for="monto">Otro</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                							<span class="fa fa-suitcase"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="otro2" placeholder="Ingrese otro tipo de obra">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" id="btnObras">
+                                                <div style="color:#fff; padding-bottom: 0.4em;">-</div>
+                                                <button type="button" id="btnAgregar2" class="btn btn-success media-middle" name="btnIngresar" onclick="otraObra()">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--FECHAS-->
+                        <div class="row espacio">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Fecha del contrato</div>
+                                    <div class="panel-body">
+                                        <div class="row form-group">
+                                            <!--FECHA DE INICIO-->
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <label for="inicio">Inicio</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                			<span class="fa fa-calendar-plus-o"></span>
+                                                    </span>
+                                                    <input type="date" name="fechaInicio" id="fechaInicio" required="Campo obligatorio">
+                                                </div>
+                                            </div>
+                                            <!--FECHA DE TERMINO-->
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <label for="fin">Termino</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                			<span class="fa fa-calendar-check-o"></span>
+                                                    </span>
+                                                    <input type="date" name="fechaTermino" id="fechaTermino">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--EMPRESA-->
+                        <div class="row espacio">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Empresa
+                                    </div>
+                                    <div class="panel-body">
+                                        <!--NOMBRE DE LA EMPRESA-->
+                                        <div class="col-md-8 form-group">
+                                            <label for="empresa">Nombre de la empresa</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-group"></span>
+                                                </span>
+                                                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Ingrese el nombre de la empresa" required="Campo obligatorio">
+                                            </div>
+                                        </div>
+                                        <!--ADJUNTAR EL CONTRATO DE LA EMPRESA-->
+                                        <div class="col-md-4 form-group">
+                                            <label for="archivo">Adjuntar el contrato</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-file"></span>
+                                                </span>
+                                                <input type="file" class="filestyle" data-buttonText="Select a File" name="EmpresaContrato" id="EmpresaContrato" accept="application/pdf">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group espacio">
+                                            <!--SUPERVISOR ASIGNADO POR PARTE DE LA EMPRESA-->
+                                            <div class="col-md-5">
+                                                <label for="SEmpresa">Supervisor de la Empresa</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-user"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="SEmpresa" name="SEmpresa" placeholder="Ingrese el nombre de la empresa" >
+                                                </div>
+                                            </div>
+                                            <!--GRADO MAXIMO DE ESTUDIOS DEL SUPERVISOR DE LA EMPRESA-->
+                                            <div class="col-md-3">
+                                                <label for="GradoEmpresa">Grado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-bookmark-o"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="GradoEmpresa" name="GradoEmpresa" placeholder="Ingrese el grado" >
+                                                </div>
+                                            </div>
+                                            <!--ADJUNTAR EL CERTIFICADO DEL SUPERVISOR DE LA EMPRESA-->
+                                            <div class="col-md-4 form-group">
+                                                <label for="SupervisorEmpresa">Adjuntar el certificado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-file"></span>
+                                                    </span>
+                                                    <input type="file" class="filestyle" data-buttonText="Select a File" name="SupervisorEmpresa" id="SupervisorEmpresa" accept="application/pdf">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--SELECCIONE UN SUPERVISOR UAEMex-->
+                        <div class="row espacio">
+                            <div class="">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Supervisor UAEMex
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-8 form-group">
+                                            <br>
+                                            <label for="SUaemex">Nombre</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-caret-square-o-down"></span>
+                                                </span>
+                                                <select class="form-control grupos" id="SUaemex" name="SUaemex">
+                                                    <option value="0">Seleccione una opcion</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right;">
+                                            <br><br>
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#VentanaModal2">Agregar un nuevo Supervisor</button>
+                                        </div>
+                                        <div class="row espacio">
+                                            <!--TIPO DE BITACORA-->
+                                            <div class="col-md-12 form-group">
+                                                <br>
+                                                <label for="bitacora">Tipo de bitacora</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-caret-square-o-down"></span>
+                                                    </span>
+                                                    <select class="form-control grupos" id="bitacora" name="bitacora">
+                                                        <option value="0">Seleccione una opcion</option>
+                                                        <option value="1">Electronica</option>
+                                                        <option value="2">Convencional</option>
+                                                        <option value="3">Electronica y Convencional</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row espacio" style="text-align:  center;">
+                            <button type="submit" class="btn btn-primary btn-block" id="submit" style="color: #fff; background-color:#2C5234; border-color:#2C5234;">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+                <br><br><br>
+            </div><!--AQUI TERMINA EL FORMULARIO-->
+
+            <!--DESDE AQUI COMIENZA LA IMAGEN DE CARGANDO-->
+            <div class="login" id="vtn_login" style="text-align: center; display: none">
+                <img src="imagenes/cargando.gif" alt="Imagen no encontrada">
+            </div>
+
+            <!--DESDE AQUI COMIENZA LA IMAGEN DE BIEN OSEA QUE TODO TERMINO CON EXITO-->
+            <div class="bien" id="vtn_bien" style="text-align: center; display: none">
+                <img src="imagenes/bien-128.png" alt="Imagen no encontrada">
+                <h5>Se guardo con exito la informacion.</h5>
+                <p><a href="AltaObras.html">Regresar</a></p>
+            </div>
+
+
+        </div><!--AQUI TERMINA EL PANEL-->
+    </div><!--AQUI TERMINA EL CONTAINER -->
+    
+    </div><!-- DESDE AQUI COMIENZA LA VENTANA MODAL DE LA OPCION DE EDITAR -->
+        <div class="modal fade" id="VentanaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-Imagen" id="modalImagen" style="text-align: center;">
+                <!--Esta parte se carga dinamicamente-->
+                ...
+              </div>
+
+              <div class="modal-body" id="modalBody" style="text-align: justify;">
+                <!--Esta parte se carga dinamicamente-->
+                ...
+              </div>
+              <div class="modal-footer" id="modalBotones">
+                <!--Esta parte se carga dinamicamente-->
+                ...
+              </div>
+            </div>
+          </div>
+        </div>
+    </div><!--AQUI TERMINA LA VENTANA MODAL DE LA OPCION DE EDITAR-->
+
+    <div><!-- DESDE AQUI COMIENZA LA VENTANA MODAL DE LA OPCION DE AGREGAR UN NUEVO SUPERVISOR -->
+        <div class="modal fade" id="VentanaModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+          <div class="modal-dialog" role="document" style="width: 800px;">
+            <div class="modal-content">
+            <div class="alert alert-success animated" id="mnsjSupervisorUAMex" style="display: none; text-align: center;">...</div>
+              <div class="row modal-header" style="margin:0px;">
+                <div class="col-sm-10 titulo">
+                    <h2 class="modal-title animated bounceInLeft" id="modalTitle">Agregar un nuevo supervisor</h2>
+                </div>
+                <div class="col-sm-2" style="text-align: right;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+              </div>
+              <div class="modal-Imagen" id="modalImagen" style="text-align: center; margin-top: 15px;">
+                    <img src="imagenes/add_user-128.png" alt="Imagen no encontrada">
+              </div>
+
+              <div class="modal-body" id="modalBody" style="text-align: justify;">
+                     <div id="form_supervisor"  style="display: block;">
+                        
+                         <form id="miFormSupervisorUAEMex" enctype="multipart/for-data" >
+                                        <div class="row form-group">
+                                            <!--SUPERVISOR ASIGNADO POR PARTE DE LA UAEMex-->
+                                            <div class="col-md-12">
+                                                <label for="SUaemex">UAEMex</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-user"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Supervisor" required="Campo obligatorio">
+                                                </div>
+                                            </div>
+                                        </div>
+                         
+                                        <div class="row form-group">
+                                            <!--GRADO MAXIMO DE ESTUDIOS DEL SUPERVISOR DE LA UAEMex-->
+                                            <div class="col-md-6">
+                                                <label for="GradoUaemex">Grado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-bookmark-o"></span>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="grado" name="grado" placeholder="Ingrese el grado" required="Campo obligatorio">
+                                                </div>
+                                            </div>
+                                            <!--ADJUNTAR EL CERTIFICADO DEL SUPERVISOR DE LA UAEMex-->
+                                            <div class="col-md-6">
+                                                <label for="SupervisorUAEMex">Adjuntar el certificado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <span class="fa fa-file"></span>
+                                                    </span>
+                                                    <input type="file" class="filestyle" data-buttonText="Select a File" name="SupervisorUAEMex" id="SupervisorUAEMex" accept="application/pdf">
+                                                </div>
+                                            </div>
+                                        </div>
+                         
+                                        <div class="row form-group">
+                                            <div class="col-sm-12">
+                                                <button type="submit" id="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 0px;">Agregar</button>
+                                            </div>
+                                        </div>
+                            </form>
+                     </div>
+
+                             <div id="cargando_SupervisorUAEMex" style="display: none;">
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <img src="imagenes/cargando.gif" alt="Imagen no encontrada">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="SupervisorUAEMex_Error" style="display: none;">
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <img src="imagenes/Error-128.png" alt="Imagen no encontrada">
+                                    </div>
+                                    <p class="error_supervisor">
+                                        
+                                    </p>
+                                </div>
+                            </div>   
+                </div><!--AQUI TERMINA EL MODAL BODY-->   
+              </div><!--AQUI TERMINA EL modal-content-->
+            </div><!--AQUI TERMINA El modal-dialog-->                 
+          </div><!-- AQUI TERMINA modal fade-->
+        </div><!--AQUI TERMINA LA VENTANA MODAL DE LA OPCION DE AGREGAR UN NUEVO SUPERVISOR-->
+    
+    <!-- Modal -->
+<div id="VentanaModalX" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+    <div><!-- DESDE AQUI COMIENZA LA VENTANA MODAL DE NUEVO ESPACIO ACADEMICO -->
+        <div class="modal fade" id="VentanaModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+          <div class="modal-dialog" role="document" style="width: 800px;">
+            <div class="modal-content">
+               <div class="alert alert-success animated" id="mnsjEspacioBeneficiado" style="display: none; text-align: center;">...</div>
+              <div class="row modal-header" style="margin:0px;">
+                <div class="col-sm-10 titulo">
+                    <h2 class="modal-title animated bounceInLeft" id="modalTitle">Agregar un nuevo espacio beneficiado</h2>
+                </div>
+                <div class="col-sm-2" style="text-align: right;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+              </div>
+              <div class="modal-Imagen" id="modalImagen" style="text-align: center; margin-top: 15px;">
+                    <img src="imagenes/home-128.png" alt="Imagen no encontrada">
+              </div>
+
+              <div class="modal-body" id="modalBody" style="text-align: justify;">
+                 <div id="formEspacioBeneficiado">
+                            <form id="miFormEspacioB">
+                                    <div class="row form-group">
+                                         <!--ESPACIO BENEFICIADO-->
+                                        <div class="col-md-12 form-group">
+                                            <label for="beneficiado">Espacio beneficiado</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-bank"></span>
+                                                </span>
+                                                <input type="text" class="form-control" id="beneficiado2" name="beneficiado" placeholder="Ingrese el nombre del espacio beneficiado" required="Campo obligatorio">
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="row form-group">
+                                        <!--DIRECCION DEL ESPACIO BENEFICIADO-->
+                                        <div class="col-md-12 form-group">
+                                                             
+                                            <label for="direccion">Dirección del espacio beneficiado</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                        <span class="fa fa-map-marker"></span>
+                                                </span>
+                                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese la direccion" required="Campo obligatorio">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 0px;">Agregar</button>
+                                        </div>
+                                    </div>
+                        </form>
+                 </div>
+
+                            <div id="cargando_EspacioBeneficiado" style="display: none;">
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <img src="imagenes/cargando.gif" alt="Imagen no encontrada">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="EspacioBeneficiado_Error" style="display: none;">
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <img src="imagenes/Error-128.png" alt="Imagen no encontrada">
+                                    </div>
+                                    <p class="error_supervisor">
+                                        
+                                    </p>
+                                </div>
+                            </div>
+              </div><!--AQUI TERMINA modal-body -->
+            </div><!--AQUI TERMINA modal-content -->
+          </div><!--AQUI TERMINA modal-dialog -->
+        </div><!--AQUI TERMINA modal fade -->
+    </div><!--AQUI TERMINA LA VENTANA MODAL DE NUEVO ESPACIO ACADEMICO-->
+    
+
+    
+    <script>
+    
+
+
+    $("#miFormAltas").on("submit", function(e)//FUNCION AJAX PARA DAR DE ALTA UNA NUEVA OBRA
+    {
+
+        e.preventDefault();//evita que se recarge la pagina
+
+        //VALIDAR QUE HAYA SELECCIONADO UN TIPO DE BITACORA
+        var t_bitacora=document.getElementById("bitacora").value;
+        
+        
+
+        //VALIDAR QUE POR LO MENOS SE HAYA SELECCIONADO UN TIPO DE RECURSO
+        var t_recurso = document.getElementsByName("t_recursos");
+        var tipo_r=[];
+        for(var i=0; i<t_recurso.length; i++) 
+        {
+            //Se recorre todos los tipos de recursos para saber si algunos de ellos esta seleccionado
+            if(t_recurso[i].checked == true)
+            {
+                //Crear un arreglo de los tipos de recursos seleccionados para posteriormente insertarlos
+                //en la tabla una vez que se conozca el id, el id se va conocer hasta que se inserte los datos
+                //en la tabla altas_obras
+               tipo_r.push(t_recurso[i].value);  
+            }
+        }
+        
+
+        //VALIDAR QUE POR LO MENOS SE HAYA SELECCIONADA UN TIPO DE OBRA
+        var t_obra = document.getElementsByName("t_obras");
+        var tipo_o=[];
+        for(var i=0; i<t_obra.length; i++) 
+        {
+            //Se recorre todos los tipos de recursos para saber si algunos de ellos esta seleccionado
+            if(t_obra[i].checked == true)
+            {
+                //Crear un arreglo de los tipos de recursos seleccionados para posteriormente insertarlos
+                //en la tabla una vez que se conozca el id, el id se va conocer hasta que se inserte los datos
+                //en la tabla altas_obras
+               tipo_o.push(t_obra[i].value);  
+            }
+        }
+
+        if((tipo_r.length == 0  && tipo_o == 0) && t_bitacora == 0)
+        {
+            //los 3 campos vacios (todos vacios)
+            cargarRecursos3(1);
+        }
+        else
+        {
+            var bandera=true;
+            if(tipo_r.length == 0 && tipo_o == 0)
+            {
+                //falta el tipo de recurso y tipo de obra
+                cargarRecursos3(2);
+                bandera=false;    
+            }
+
+            if(tipo_r.length == 0 && t_bitacora == 0)
+            {
+                //falta el tipo de recurso y el tipo de bitacora
+                cargarRecursos3(3);
+                bandera=false; 
+            }
+
+            if(tipo_r.length ==0 && bandera)
+            {
+                //falta el tipo de recurso
+                cargarRecursos3(4);
+                bandera=false; 
+
+            }
+
+            
+
+            if(tipo_o == 0 && tipo_r == 0)
+            {
+                //falta tipo de obra y tipo de recurso
+                cargarRecursos3(5);
+                bandera=false;
+            } 
+
+            if(tipo_o == 0  && t_bitacora == 0)
+            {
+                //falta tipo de obra y tipo de bitacora
+                cargarRecursos3(6);
+                bandera=false;
+            }
+
+            if(tipo_o == 0 && bandera)
+            {
+                //falta tipo de obra
+                cargarRecursos3(7);
+                bandera=false;
+            }
+            
+
+            if(t_bitacora == 0 && tipo_r == 0)
+            {
+                //Falta tipo de bitacora y tipo de recurso
+                cargarRecursos3(8);
+                bandera=false;
+            }
+
+            if(t_bitacora == 0 && tipo_o == 0)
+            {
+                //Falta tipo de bitacora y tipo de obra
+                cargarRecursos3(9);
+                bandera=false;
+            }
+
+
+            if(t_bitacora == 0 && bandera)
+            {
+                //Falta tipo de bitacora
+                cargarRecursos3(10);
+                bandera=false;
+            }
+
+            if(bandera)
+            {
+                //SI TODOS LOS CAMPOS ESTAN LLENOS LLAMA A LA FUNCION DE insertarObra()
+                insertarObra();
+            }
+        }
+
+        function insertarTabla(datos, info)
+        {
+            
+            //ESTA FUNCION SIRVE PARA INSERTAR DATOS EN LA TABLA
+            //altas_obras_bitacora
+            //altas_obrast_obras
+            //altas_obrast_recurso
+            console.log("insert_alta_obras: "+info);
+            //console.log("id_altas: "+datos);
+            //console.log("bitacora:"+t_bitacora)
+            //console.log("tipo_r: "+tipo_r);
+            //console.log("tipo_o: "+tipo_o);
+            $.ajax({
+                // En data puedes utilizar un objeto JSON, un array o un query string
+                data: {"id_altas" : datos, "id_bitacora" : t_bitacora, "tipo_r" : tipo_r, "tipo_o" : tipo_o},
+                //Cambiar a type: POST si necesario
+                type: "GET",
+                // Formato de datos que se espera en la respuesta
+                dataType: "json",
+                // URL a la que se enviará la solicitud Ajax
+                url: "AltaRecursos2.php",
+            })
+             .done(function( data, textStatus, jqXHR ) {
+                 if ( console && console.log ) {
+                     console.log("¿Es correcto?: "+data.success);
+                     console.log( "Arreglo de obra: "+data.obra);
+                     console.log("Arreglo de recursos:"+data.recurso);
+                 }
+             })
+             .fail(function( data, jqXHR, textStatus, errorThrown ) {
+                 if ( console && console.log ) {
+                     console.log( "La solicitud a fallado: " +  data);
+                 }
+            });
+
+        }
+        
+
+        function insertarObra()
+        {
+            var formData = new FormData(document.getElementById("miFormAltas"));
+           
+
+            $.ajax({
+                    url:"AltaObras.php",
+                    type:"POST",
+                    dataType:"json",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    encode:true,
+                    processData: false,
+                    beforeSend: function()
+                    {
+                        //OCULTAMOS EL FORMULARIO Y MOSTRAMOS EL LOGIN MIENTRAS QUE LOS DATOS SON PROCESADOS
+                        document.getElementById("panel-principal").style.display="none";
+                        document.getElementById("vtn_login").style.display="block";
+                    },
+                    success: function(datos)
+                    {
+                        insertarTabla(datos.id, datos.insert_alta_obras);
+                        console.log("datos.id : "+datos.id);
+                        document.getElementById("vtn_login").style.display="none";
+                        document.getElementById("vtn_bien").style.display="block";                           
+                    },
+                    error: function(XMLHttpRequest,data)
+                    {
+                        document.getElementById("vtn_login").style.display="none";
+                        console.log(XMLHttpRequest);
+                        console.log("Error: "+XMLHttpRequest.responseText);
+                    } 
+                });
+
+        }
+        
+    });
+
+    </script>
+
+    <script>//Actualizar la lista de T_Recursos y T_Obras
+        $(document).ready(function()//Cunado el documento este listo
+        {
+          listaRecursos();  
+          listaObras();
+          consulta_EspaciosB();
+          consulta_Select("supervisoruaemex", "SUaemex");
+          consulta_Select("tipo_Obra", "tipoObra");
+          consulta_Select("estadoObra", "estadoObra");
+          
+        });
+
+        $("#miFormSupervisorUAEMex").on("submit", function(e)//BOTON PARA AGREGAR UN SUPERVISOR
+        {
+                    e.preventDefault();//evita que se recarge la pagina
+                    var formData = new FormData(document.getElementById("miFormSupervisorUAEMex"));
+                    $.ajax({
+                        url:"AltaSup_UAEMex.php",
+                        type:"POST",
+                        dataType:"json",
+                        data:formData,
+                        cache:false,
+                        contentType: false,
+                        encode:true,
+                        processData: false,
+                        beforeSend: function()
+                        {
+                            document.getElementById("form_supervisor").style.display="none";
+                            document.getElementById("cargando_SupervisorUAEMex").style.display="block";   
+                        },
+                        success: function(datos)
+                        {
+                            //LIMPIAMOS LOS DATOS DEL FORMULARIO 
+                            document.getElementById("miFormSupervisorUAEMex").reset();
+
+                            //OCULTAMOS LA VENTANA MODAL DE AGREGAR UN NUEVO SUPERVISOR
+                            document.getElementById("cargando_SupervisorUAEMex").style.display="none";
+                            document.getElementById("form_supervisor").style.display="block";
+                            document.getElementById("mnsjSupervisorUAMex").innerHTML="Se agrego correctamente <strong>"+datos.nombre+"</strong>";
+                            document.getElementById("mnsjSupervisorUAMex").style.display="block";
+
+                            //Hacer que el mensaje desaparesca despues de un tiempo 
+                            setTimeout(function(){ 
+                                $("#mnsjSupervisorUAMex").addClass("fadeOut");
+                            }, 3000);
+                            consulta_Select("supervisoruaemex","SUaemex");
+
+                            setTimeout(function(){ 
+                                document.getElementById("mnsjSupervisorUAMex").style.display="none";
+                                $("#mnsjSupervisorUAMex").removeClass("fadeOut");
+                            }, 4000);
+                            consulta_Select("supervisoruaemex","SUaemex");
+                        },
+                        error: function(XMLHttpRequest, datos)
+                        {
+                           console.log(XMLHttpRequest);
+                           console.log(datos.mensajes);
+                           document.getElementById("cargando_SupervisorUAEMex").style.display="none";
+                           document.getElementById("SupervisorUAEMex_Error").style.display="block";
+                           document.getElementById("SupervisorUAEMex_Error").getElementsByTagName("p").innerHTML = "Error "+XMLHttpRequest;  
+                        }
+                    });
+        });
+
+
+        $('#miFormEspacioB').on("submit", function(e)
+        {
+                     e.preventDefault();//evita que se recarge la pagina
+                    var formData = new FormData(document.getElementById("miFormEspacioB"));
+                    $.ajax({
+                        url:"AltaEspacioBeneficiado.php",
+                        type:"POST",
+                        dataType:"json",
+                        data:formData,
+                        cache:false,
+                        contentType: false,
+                        encode:true,
+                        processData: false,
+                        beforeSend: function()
+                        {
+                            document.getElementById("formEspacioBeneficiado").style.display="none";
+                            document.getElementById("cargando_EspacioBeneficiado").style.display="block";   
+                        },
+                        success: function(datos)
+                        {
+                            //LIMPIAMOS LOS DATOS DEL FORMULARIO 
+                            document.getElementById("miFormEspacioB").reset();
+
+                            //OCULTAMOS LA VENTANA MODAL DE AGREGAR UN NUEVO SUPERVISOR
+                            document.getElementById("cargando_EspacioBeneficiado").style.display="none";
+                            document.getElementById("formEspacioBeneficiado").style.display="block";
+                            document.getElementById("mnsjEspacioBeneficiado").innerHTML="Se agrego correctamente <strong>"+datos.nombre+"</strong>";
+                            document.getElementById("mnsjEspacioBeneficiado").style.display="block";
+
+                            //Hacer que el mensaje desaparesca despues de un tiempo 
+                            setTimeout(function(){ 
+                                $("#mnsjEspacioBeneficiado").addClass("fadeOut");
+                            }, 3000);
+                            consulta_Select("espaciobeneficiado","beneficiado");
+
+                            setTimeout(function(){ 
+                                document.getElementById("mnsjEspacioBeneficiado").style.display="none";
+                                $("#mnsjEspacioBeneficiado").removeClass("fadeOut");
+                            }, 4000);
+                            consulta_Select("supervisoruaemex","SUaemex");
+                        },
+                        error: function(XMLHttpRequest, datos)
+                        {
+                           console.log(XMLHttpRequest);
+                           console.log(datos.mensajes);
+                           document.getElementById("cargando_EspacioBeneficiado").style.display="none";
+                           document.getElementById("EspacioBeneficiado_Error").style.display="block";
+                           document.getElementById("EspacioBeneficiado_Error").getElementsByTagName("p").innerHTML = "Error "+XMLHttpRequest;  
+                        }
+                    });
+
+        });
+
+
+         function consulta_Select(tabla, select)
+        {
+                    $.ajax({
+                        url:"consulta_Select.php?tabla="+tabla,
+                        type:"GET",
+                        dataType:"json",
+                        cache:false,
+                        contentType: false,
+                        encode:true,
+                        processData: false,
+                        beforeSend: function()
+                        {
+                             
+                        },
+                        success: function(datos)
+                        {
+                            var t_re=document.getElementById(select);
+                            t_re.innerHTML="<option value='0'>Seleccione una opción</option";
+                            for (i in datos) 
+                            {
+                                t_re.innerHTML +=`<option value='${datos[i].id}'>${datos[i].name}</option>`;
+                                
+                            }
+                            
+                        },
+                        error: function(XMLHttpRequest, datos)
+                        {
+                           console.log("Response text: "+XMLHttpRequest.responseText+" Datos: "+datos); 
+
+                        }
+                    });
+
+        }        
+</script>
+
+</body>
+
+</html>

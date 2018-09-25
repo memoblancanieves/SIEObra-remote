@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <!-- JQuery           -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- JS de Bootstrap  -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="listas.js"></script>
+    <script src="validar_extension.js"></script>
+	<title>Agregar prologa</title>
+</head>
+<body>
+	<div class="container" id="container">
+        <div class="panel panel-primary borde-color"">
+
+            <!--TITULO DE ALTAS DE OBRAS-->
+            <div class="row">
+                <div class="col-md-2" style="background-color: #2C5234; border-color: #2C5234;
+                    color: #ffff; margin-top: 15px; text-align: center;">
+                    <h4>Agregar Prologa</h4>
+                </div>
+            </div>
+               
+    
+            
+            <div class="row" style="margin-bottom: 15px;">
+                <!--TITULO DE SIEObras-->
+                <div class="logo" style="text-align: center;">
+                    <img src="imagenes/10_uaem_movHNormal.png" alt="Imagen no encontrada" style="max-width: 200px;">
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <br>
+                    <h1>SIEObra</h1>
+                    <h3>Sistema de Información Estadistica de Obra Universitaria</h3>
+                </div>
+                            
+                <!--LINEA DE COLORES-->
+                <div style="margin: 0px 180px;">
+                    <div class="panel-heading col-md-4" style="background-color: #2C5234; border-color: #2C5234; margin-bottom: 35px; padding: 4px;" >
+                    </div>
+                    
+                    <div class="panel-heading col-md-8" style="background-color: #9C8412;border-color: #9C8412; margin-bottom: 35px; padding: 4px;" >              
+                    </div>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="margin: 0px 35px;">
+                    <a href="index.php"><img src="imagenes/regresar.png" alt="imagen">Regresar</a>
+                </div>
+            </div>
+           
+
+            <!--DESDE AQUI COMIENZA LA IMAGEN DE CARGANDO-->
+            <div class="login" id="vtn_login" style="text-align: center; display: none">
+                <img src="imagenes/cargando.gif" alt="Imagen no encontrada">
+            </div>
+            
+            <!--DESDE AQUI COMIENZA LA IMAGEN DE BIEN OSEA QUE TODO TERMINO CON EXITO-->
+            <div class="bien" id="vtn_bien" style="text-align: center; display: none">
+                <img src="imagenes/bien-128.png" alt="Imagen no encontrada">
+                <h5>Se actualizo con exito la informacion.</h5>
+                <p><a href="Editar.html">Regresar</a></p>
+            </div>
+
+            <!--COMO DESEA REALIZAR LA BUSQUEDA-->
+            <div class="panel-body animated bounceIn" id="panel-principal" style="display: block;">
+                <!--COMO DESEA REALIZAR LA CONSULTA-->
+                <div class="row" id="capa" style="display: block;  margin: 25px 0px;">
+                    <div class="col-md-12" style="text-align: left; color: #1976d2">
+                        <h2>Filtro de busqueda</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control form-control-lg" name="opc_buscar" id="opc_buscar">
+                            <option value="0">Seleccionar una opción</option>
+                            <option value="1">Nombre de la obra</option>
+                            <option value="2">Numero de contrato</option>
+                            <option value="3">Espacio beneficiado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--NOMBRE DE LA OBRA-->
+                <div class="row animated" id="capa1" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Nombre de la obra</h2>
+                    </div>
+                    <!--NOMBRE DE LA OBRA-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="nombreObra" name="nombreObra" placeholder="Ingresa el nombre de la obra" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(1)">Regresar</button>
+                    </div>
+                </div>
+                
+                <!--NUMERO DE CONTRATO-->
+                <div class="row animated" id="capa2" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Numero de contrato</h2>
+                    </div>
+                    <!--NUMERO DE CONTRATO-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="n_Contrato" name="n_Contrato" placeholder="Ingresa numero de contrato" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(2)">Regresar</button>
+                    </div>
+                </div>
+
+                <!--ESPACIO BENEFICIADO-->
+                <div class="row animated" id="capa3" style="display: none;margin:15px;">
+                    <div class="col-md-12" style="color: #1976d2">
+                        <h2>Espacio Beneficiado</h2>
+                    </div>
+                    <!--ESPACIO BENEFICIADO-->
+                    <div class="col-md-8 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-building-o"></span>
+                                </span>
+                                <input type="text" class="form-control" id="espacio_B" name="espacio_B" placeholder="Ingrese nombre del espacio beneficiado" required="Campo obligatorio" maxlength="200">
+                            </div>
+                    </div>
+                    
+                    <div class="col-md-4" style="text-align: right;">
+                        <button type="button" class="btn btn-link" onclick="mostrar_opc(3)">Regresar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--TABLA DE CONSULTA-->
+            <div class="animated bounceIn" id="datos" style="margin:25px;">
+                
+            </div>
+        </div>
+    </div>
+</body>
+ <script src="base-tbl-buscar.js"></script>
+<script>
+    var Sid=0;
+    $(document).ready(function()
+    {
+        consultar();
+    });
+
+    function llenar(id)
+    {
+        //SE DA CLICK EN LA TABLA Y SE SELECCIONA UNO EN ESPESIFICO  
+        Sid=id;
+    }
+</script>

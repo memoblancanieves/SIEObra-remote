@@ -1,0 +1,19 @@
+/*DE LA FORMA COMUN*/
+
+SELECT altas_obras.Nombre, altas_obras.NoContrato, espaciobeneficiado.Nombre as espaciobeneficiado 
+				from altas_obras, espaciobeneficiado, espaciobeneficiado_altaobras WHERE altas_obras.ID=espaciobeneficiado_altaobras.AltaObrasId;
+				
+	
+/*Consulta a 3 tablas*/	
+
+SELECT altas_obras.Nombre, altas_obras.NoContrato, espaciobeneficiado.Nombre as espaciobeneficiado 
+				from altas_obras INNER JOIN espaciobeneficiado_altaobras ON espaciobeneficiado_altaobras.AltaObrasId=altas_obras.ID
+				INNER JOIN espaciobeneficiado ON espaciobeneficiado.ID=espaciobeneficiado_altaobras.EspacioBeneficiadoId;
+				
+/*Consulta a 5 tablas*/
+
+SELECT altas_obras.Nombre, altas_obras.NoContrato, espaciobeneficiado.Nombre as espaciobeneficiado, supervisoruaemex.Nombre 
+				from altas_obras INNER JOIN espaciobeneficiado_altaobras ON espaciobeneficiado_altaobras.AltaObrasId=altas_obras.ID
+				INNER JOIN espaciobeneficiado ON espaciobeneficiado.ID=espaciobeneficiado_altaobras.EspacioBeneficiadoId
+				INNER JOIN s_uaemexaltaobras ON s_uaemexaltaobras.AltaObrasID=altas_obras.ID
+				INNER JOIN supervisoruaemex ON supervisoruaemex.ID=s_uaemexaltaobras.S_UAEMexID;

@@ -1,0 +1,276 @@
+<?php
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<style type="text/css">
+		html {
+		margin: 0;
+		}
+		body {
+		font-family: "Times New Roman", serif;
+		}
+		.padre
+		{
+			width: 690px;
+		}
+		.color
+		{
+			color:#01DF01;
+		}
+		
+		.border
+		{
+			border: 1px solid #000;
+		}
+		.border-padre
+		{
+			border:2px solid #B40404;
+			padding: 15px;
+		}
+		.clean
+		{
+			clear: both;
+		}
+		.center
+		{
+			margin: auto;
+		}
+		
+		.titulo
+		{
+			border-bottom: 2px solid #DF0101;
+			color:#DF0101;
+			margin-bottom: 45px;
+		}
+		
+		.titulo2
+		{
+			border-bottom: 2px solid #088A08;
+			color:#088A08;
+		}
+		.separacion
+		{
+			padding-top: 5px;
+		}
+		.subtitulos
+		{
+			color:#DF0101;
+		}
+
+		.menos
+		{
+			padding: 0px 1px;
+		}
+		hr 
+		{
+			page-break-after: always;
+			border: 0;
+			margin: 0;
+			padding: 0;
+		}
+		p
+		{
+			height: 10px;
+			margin-bottom: 1rem;
+			width: 100%;
+		}
+		.puteado
+		{
+			border-bottom: 1px dotted #000;
+		}
+		.caja_padre
+		{
+			
+		}
+	
+
+	</style>
+	<div class=""><!--padre border-padre center -->
+
+		<div class="titulo" style="width: 900px; margin: auto; margin-bottom: 15px; margin-top: 20px;">
+			<h3 style="margin-bottom: 5px">Obras en proceso</h3>
+		</div>
+		
+		<?php
+			include 'conexion.php';
+			$resultado=mysqli_query($con,"SELECT
+										altas_obras.ID as id, 
+										altas_obras.Nombre as obra, 
+										altas_obras.Monto as monto, 
+										altas_obras.FechaInicio, 
+										altas_obras.FechaTermino,
+										reportes.imgReporte as imgReporte, 
+										reportes.AvanceFisico, 
+										reportes.AvanceFinanciero, 
+										reportes.descripcion as trabajos, 
+										reportes.Observaciones,
+										espaciobeneficiado.Nombre as espacio 
+			FROM reportes INNER JOIN altas_obras ON reportes.IdObra = altas_obras.ID
+			INNER JOIN espaciobeneficiado_altaobras ON altas_obras.ID = espaciobeneficiado_altaobras.AltaObrasId
+			INNER JOIN espaciobeneficiado ON espaciobeneficiado_altaobras.EspacioBeneficiadoId = espaciobeneficiado.ID  
+			WHERE reportes.FechaInicio>='".$fechaInicio."' AND reportes.FechaTermino<='".$fechaTermino."'");
+
+			
+			$contador=0;
+			$bandera=true;
+			if(mysqli_num_rows($resultado)>0)
+			{
+
+				foreach ($resultado as $fila) 
+				{
+					//para obtener el tipo de recurso se hace lo siguiente
+					$resultado2=mysqli_query($con,"SELECT t_recursos.Nombre AS recurso 
+						FROM altas_obras INNER JOIN altas_obrast_recurso ON altas_obras.ID=altas_obrast_recurso.ID_alta 
+						INNER JOIN t_recursos ON altas_obrast_recurso.ID_Recursos=t_recursos.ID 
+						WHERE altas_obras.ID=".$fila["id"]);
+					$mensaje=" ";
+					if(mysqli_num_rows($resultado2)>0)
+					{
+						foreach ($resultado2 as $fila2) 
+						{
+							$mensaje.=$fila2["recurso"]." ";
+						}
+					}
+					else
+					{
+						$mensaje.="No se tiene registrado";
+					}
+					$contador=$contador+1;
+
+					if($contador==2)
+					{
+						
+						$dis=30;
+						$dist_alto=25;
+					}
+					else
+					{
+						if($bandera)
+						{
+							$dist_alto=48;
+							$bandera=false;	
+						}
+						else
+						{
+							$dist_alto=45;
+						}
+						
+						$dis=5;
+					}
+
+					//Para obtener el nombre del arquitecto
+					$resultado3=mysqli_query($con,"SELECT s_uaemexaltaobras.S_UAEMexID, supervisoruaemex.Nombre 
+						FROM s_uaemexaltaobras 
+						INNER JOIN supervisoruaemex ON s_uaemexaltaobras.S_UAEMexID =supervisoruaemex.ID 
+						WHERE AltaObrasID=".$fila["id"]);
+
+					foreach ($resultado3 as $fila3) 
+					{
+					 	$super=$fila3["Nombre"];
+					 } 
+
+					/*Esto solo se va ser una vez
+					//Abrir la imagen
+					$original = imagecreatefromjpeg($fila["imgReporte"]);
+					$ancho_original=imagesx($original);
+					$alto_original=imagesy($original);
+
+					//Crear un lienzo vacio
+					$copia = imagecreatetruecolor(200, 200);
+
+					imagecopyresampled($copia, $original, 0, 0, 0, 0,200,200 ,$ancho_original, $alto_original);
+
+					//Exportar y guardar la imagen
+					imagejpeg($copia,$fila["imgReporte"], 100);*/
+
+
+					?>
+					<div class="caja_padre" style="margin-top:<?php echo $dist_alto."px" ?>; margin-bottom:<?php echo  $dis."px" ?>; height: 280px; ">
+						<table style="width: 920px; max-height: 280px; margin: auto;">
+
+							<tbody>
+								<tr><!--Nueva fila-->
+									<td class="titulo2">Espacio</td>
+									<td class="titulo2" colspan="4"><?php echo $fila["espacio"]; ?></td>
+								</tr>
+								
+								<tr><!--Nueva fila-->
+									<td class="puteado separacion subtitulos">Obra</td>
+									<td class="puteado separacion" colspan="3"><?php echo $fila["obra"]; ?></td>
+									<td class="separacion" rowspan="5" style="padding: 5px 0px 0px 0px; text-align: center;">
+										<img src="<?php echo $fila["imgReporte"];  ?>" alt="No se encontro la imagen" style="max-width:150px; width: 120px; height: 120px;">
+									</td>
+								</tr>
+								
+								<tr><!--Nueva fila -->
+									<td class="puteado subtitulos menos">Monto</td>
+									<td class="puteado menos" colspan="3"><?php echo $fila["monto"]; ?></td>
+									<!--<td>IMAGEN</td>-->
+								</tr>	
+								
+								<tr><!--Nueva fila-->
+									<td class="puteado subtitulos menos">Fecha inicio</td>
+									<td class="puteado menos" style="max-width:100px;"><?php echo $fila["FechaInicio"]; ?></td>
+									<td class="puteado subtitulos menos">Fecha de término programada</td>
+									<td class="puteado"><?php echo $fila["FechaTermino"]; ?></td>
+									<!--<td>IMAGEN</td>-->
+								</tr>
+								
+								<tr><!--Nueva fila--->
+									<td class="puteado subtitulos menos">Tipo de recurso</td>
+									<td class="puteado menos" colspan="3"><?php echo $mensaje ?></td>
+									<!--<td>IMAGEN</td>-->
+								</tr>
+								
+								<tr><!--Nueva fila-->
+									<td class="puteado subtitulos menos">Avance Fisico</td>
+									<td class="puteado menos"><?php echo $fila["AvanceFisico"]; ?></td>
+									<td class="puteado subtitulos menos">Avance Financiero</td>
+									<td class="puteado menos"><?php echo $fila["AvanceFinanciero"]; ?></td>
+									<!--<td>IMAGEN</td>-->
+								</tr>
+								
+								<tr><!--Nueva fila-->
+									<td class="puteado subtitulos menos">Trabajos en proceso</td>
+									<td class="puteado menos" colspan="4"><?php echo $fila["trabajos"]; ?></td>
+								</tr>
+								
+								<tr><!--Nueva fila-->
+									<td class="puteado subtitulos menos">Observaciones</td>
+									<td class="puteado menos" colspan="4"><?php echo $fila["Observaciones"]; ?></td>
+								</tr>
+
+								<tr><!--Nueva fila-->
+									<td class="puteado subtitulos menos">Supervisor</td>
+									<td class="puteado menos" colspan="4"><?php echo $super; ?></td>
+								</tr>
+							</tbody>
+
+							
+						
+						</table>
+						<p></p>
+					</div>
+						
+				<?php
+				if($contador==2)
+				{
+					$contador=0;
+					?>
+					<hr>
+					<?php
+				}
+				}
+			}
+			
+
+		?>
+	</div>
+	
+</body>
+</html>

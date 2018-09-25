@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <!-- JQuery           -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- JS de Bootstrap  -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+	<title>Pruebas de formulario</title>
+</head>
+<body>
+	<div class="container">
+		<form method="POST" id="miFormAltas" enctype="multipart/for-data">
+			<h4>Nombre</h4>
+			<input type="text"  class="form-control" name="nombre" id="nombre">
+
+			<h4>Ingrese la fecha</h4>
+			<input type="date"  class="form-control" name="inicio" id="inicio">
+
+			<h4>Ingrese el archivo</h4>
+			<input type="file"   name="archivo" id="archivo" accept="application/pdf">
+
+			<h5>Seleccione a quien quiere</h5>
+			<input type='checkbox' name='t_personas[]' value='Carlos'>Carlos<br>
+			<input type='checkbox' name='t_personas[]' value='Diego'>Diego<br>
+			<input type='checkbox' name='t_personas[]' value='Leon'>Leon<br>
+
+			<br><br>
+			<button type="submit" class="btn btn-primary" id="submit">Enviar</button>
+		</form>
+	</div>
+</body>
+	
+<script>
+	$("#miFormAltas").on("submit", function(e)
+	{
+		e.preventDefault();//evita que se recarge la pagina
+		var formData = new FormData(document.getElementById("miFormAltas"));
+		$.ajax({
+				url:"altasPruebas.php",
+				type:"POST",
+				dataType:"html",
+				data:formData,
+				cache:false,
+				contentType: false,
+				encode:true,
+				processData: false,
+				beforeSend: function()
+				{
+					
+				},
+				success: function(datos)
+				{
+					alert(datos);							
+				} 
+			});
+	});
+</script>	
+
+</html>

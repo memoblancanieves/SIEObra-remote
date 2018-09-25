@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <!-- JQuery           -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- JS de Bootstrap  -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <title>Pruebas ajax</title>
+</head>
+<body>
+    <h3>Hola esto es una prueba</h3>
+</body>
+</html>
+
+<script>
+var tipo_r = [1,2,3,4,8];
+
+
+
+function insertarRecurso(datos)
+{
+            console.log("entre");
+
+            $.ajax({
+                // En data puedes utilizar un objeto JSON, un array o un query string
+                data: {"parametro1" : datos, "parametro2" : tipo_r},
+                //Cambiar a type: POST si necesario
+                type: "GET",
+                // Formato de datos que se espera en la respuesta
+                dataType: "json",
+                // URL a la que se enviará la solicitud Ajax
+                url: "AltaRecursos2.php",
+            })
+             .done(function( data, textStatus, jqXHR ) {
+                 if ( console && console.log ) {
+                     console.log( "La solicitud se ha completado correctamente." );
+                     console.log(data.arreglo);
+                 }
+             })
+             .fail(function( jqXHR, textStatus, errorThrown ) {
+                 if ( console && console.log ) {
+                     console.log( "La solicitud a fallado: " +  textStatus);
+                 }
+            });
+
+}
+
+
+insertarRecurso(2);
+
+</script>

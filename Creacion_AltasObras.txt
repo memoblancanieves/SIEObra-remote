@@ -1,0 +1,6 @@
+CREATE TABLE Altas_obras(ID INT NOT NULL AUTO_INCREMENT, FechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+												Nombre VARCHAR(120), NoContrato VARCHAR(50), Espacio VARCHAR(120), Direccion VARCHAR(200),
+												Monto NUMERIC, AlumnosH INT, AlumnosM INT, ProfesoresH INT, ProfesoresM INT, 
+												FechaInicio DATE , FechaTermino DATE, Empresa VARCHAR(120), ID_Bitacora INT,
+												SupUaemex VARCHAR(100), SupEmpresa VARCHAR(100), UaemexGrado VARCHAR(100),
+												EmpresaGrado VARCHAR(100), PRIMARY KEY (ID), FOREIGN KEY (ID_Bitacora) REFERENCES bitacora(ID));

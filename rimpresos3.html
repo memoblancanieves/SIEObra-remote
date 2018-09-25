@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- BOOTSTRAP        -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- BOOSTRAP JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--CSS-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <script src="listas.js"></script>
+    <script src="validar_extension.js"></script>
+    <script src="arrays_check.js"></script>
+	<title>Generar Reportes</title>
+</head>
+<body>
+	<div class="container" id="container">
+        <div class="panel panel-primary borde-color"">
+
+            <!--TITULO DE ALTAS DE OBRAS-->
+            <div class="row">
+                <div class="col-md-2" style="background-color: #2C5234; border-color: #2C5234;
+                    color: #ffff; margin-top: 15px; text-align: center;">
+                    <h4>Generar reportes impresos</h4>
+                </div>
+            </div>
+               
+    
+            
+            <div class="row" style="margin-bottom: 15px;">
+                <!--TITULO DE SIEObras-->
+                <div class="logo" style="text-align: center;">
+                    <img src="imagenes/10_uaem_movHNormal.png" alt="Imagen no encontrada" style="max-width: 200px;">
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <br>
+                    <h1>SIEObra</h1>
+                    <h3>Sistema de Información Estadistica de Obra Universitaria</h3>
+                </div>
+                            
+                <!--LINEA DE COLORES-->
+                <div style="margin: 0px 180px;">
+                    <div class="panel-heading col-md-4" style="background-color: #2C5234; border-color: #2C5234; margin-bottom: 35px; padding: 4px;" >
+                    </div>
+                    
+                    <div class="panel-heading col-md-8" style="background-color: #9C8412;border-color: #9C8412; margin-bottom: 35px; padding: 4px;" >              
+                    </div>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="margin: 0px 35px;">
+                    <a href="index.php"><img src="imagenes/regresar.png" alt="imagen">Regresar</a>
+                </div>
+            </div>
+           <br>
+           
+
+            <!--TABLA DE CONSULTA-->
+            <div class="animated bounceIn" id="datos" style="margin:25px;">
+                
+            </div>
+            <div class="row" style="margin-left: 10px;">
+                    <div class="col-md-5" style="margin-left: 120px; margin-bottom: 25px;">
+                        <button type="submit"  class="btn btn-success">Enviar</button>
+                    </div>   
+            </div>
+
+            </form> <!-- AQUI TERMINA EL FORMULARIO -->
+
+            
+        </div>
+    </div>
+
+    <script>
+       /* $('#miFormRImpresos').on("submit", function(e)
+        {
+           
+            var formData = new FormData(document.getElementById("miFormRImpresos"));
+
+            $.ajax({
+                    url:"repimpresos.php",
+                    type:"POST",
+                    dataType:"html",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    encode:true,
+                    processData: false,
+                    beforeSend: function()
+                    {
+                        
+                    },
+                    success: function(datos)
+                    {
+                       document.getElementById("mostrarReporte").innerHTML=datos;                           
+                    },
+                    error: function(XMLHttpRequest)
+                    {
+                        console.log(XMLHttpRequest.responseText);
+                    } 
+                });
+            
+        });*/
+     $(document).ready(function()
+    {
+        consultar();
+       
+    });
+
+    function consultar(consulta, opc)//CONSULTA A LA BD TODAS LAS OBRAS
+    {
+        $.ajax({
+            url: 'consulta_buscar.php',
+            type: 'POST',
+            dataType: 'html',
+            data: {consulta: consulta, opc : opc},
+        })
+        .done(function(respuesta) 
+        {
+            $("#datos").html(respuesta);
+            //pintar los check-box
+            pintar_chech();
+        })
+        .fail(function() 
+        {
+            console.log("error");
+        });
+        pintar_chech();
+    }
+
+    $(opc_buscar).change(function()//PARA MOSTRAR EL FITRO DE BUSQUEDA SELECCIONADO
+    {
+
+        var opc =document.getElementById("opc_buscar").value;
+        if(opc != 0)
+        {
+            //Removemos la clase con la que inicia
+            $("#capa").removeClass("bounceInUp");
+            //Agregamos la clase con la que sale
+            $("#capa").addClass("bounceOutLeft");
+            //Ocultamos para que no ocupe espacio
+            $("#capa").css("display", "none");
+            switch(opc)
+            {
+                case '1':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa1").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa1").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa1").addClass("bounceInRight");
+
+                break;
+
+                case '2':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa2").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa2").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa2").addClass("bounceInRight");
+                break;
+
+                case '3':
+                    //Removemos la clase con la que se fue anteriormente
+                    $("#capa3").removeClass("bounceOutRight");
+                    //Mostramos la nueva clase
+                    $("#capa3").css("display", "block");
+                    //Agregamos la animacion de entrada
+                    $("#capa3").addClass("bounceInRight");
+                break;
+            }
+            pintar_chech();
+        }
+            
+    });
+
+    function mostrar_opc(opc)//PARA REGRESAR AL FITRO DE BUSQUEDA ANTERIOR 
+    {
+        switch(opc)
+        {
+            case 1:
+                //Removemos la clase con la que inicia
+                $("#capa1").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa1").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa1").css("display", "none");
+            break;
+
+            case 2:
+                //Removemos la clase con la que inicia
+                $("#capa2").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa2").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa2").css("display", "none");
+            break;
+
+            case 3:
+                //Removemos la clase con la que inicia
+                $("#capa3").removeClass("bounceInRight");
+                //Agregamos la clase con la que sale
+                $("#capa3").addClass("bounceOutRight");
+                 //Ocultamos la capa 
+                $("#capa3").css("display", "none");
+            break;
+
+        }
+        //Mostramos el menu de opc
+        $("#capa").css("display", "block");
+        $("#capa").removeClass("bounceOutLeft");
+        $("#capa").addClass("bounceInLeft");
+
+        //RESETEAMOS EL VALOR DEL SELECT
+        $('#opc_buscar').val($('#opc_buscar > option:first').val());
+        consultar();
+        pintar_chech();
+    }
+
+     //LIKE NOMBRE DE LA OBRA
+    $(document).on('keyup','#nombreObra', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"1");
+        }
+        else
+        {
+            consultar();
+        }
+        pintar_chech();
+    });
+
+    //LIKE NUMERO DE CONTRATO 
+    $(document).on('keyup','#n_Contrato', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"2");
+        }
+        else
+        {
+            consultar();
+        }
+        pintar_chech();
+    });
+
+
+    //LIKE ESPACIO BENEFICIADO 
+    $(document).on('keyup','#espacio_B', function(){
+        var valor = $(this).val();
+        if(valor != "")
+        {
+           consultar(valor,"3");
+        }
+        else
+        {
+            consultar();
+        }
+        pintar_chech();
+    });
+
+    function generarPDF()
+    {
+        require_once('new_pdf2.php');
+    }
+    
+    </script>
+</body>

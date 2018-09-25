@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>prueba</title>
+	<link rel="stylesheet" href="boostrap-carusel/css/bootstrap.css">
+</head>
+<body>
+	<div class="col-md-12">
+			<div id="carousel-1" class="carousel slide" data-ride="carousel">
+				<!-- Indicadores -->
+				<ol class="carousel-indicators">
+					<li data-target="#carousel-1" data-slide-to="0"	class="active" ></li>
+					<li data-target="#carousel-1" data-slide-to="1"	></li>
+					<li data-target="#carousel-1" data-slide-to="2"	></li>
+				</ol>
+				<!-- contenedor de los slide -->
+				
+				<div class="carousel-inner" role="listbox">
+					<!-- #1 -->
+					<div class="item  active">
+						<img src="imagenes/mas-128.png" class="img-responsive" alt=""> <!-- style="width:822px;height:322px;" --> <!-- YA ME QUEDO CLARO POR QUE TODAS LAS IMAGENES MISMO TAMAÑO -->
+						<div class="carousel-caption">
+							<!-- <h3>Este es nuestro Slide #1</h3>
+							<p>Lorem ipsum dolor sit amet.</p> -->
+						</div>
+					</div>
+					<!-- #2 -->
+					<div class="item ">
+						<img src="imagenes/home-128.png" class="img-responsive" alt="">
+						<div class="carousel-caption">
+							<!-- <h3>Este es nuestro Slide #2</h3>
+							<p>Lorem ipsum dolor sit amet.</p> -->
+						</div>
+					</div>
+					<!-- #3 -->
+					<div class="item">
+						<img src="imagenes/Informacion-128.png" class="img-responsive" alt="">
+						<div class="carousel-caption">
+			   				<!-- <h3>Este es nuestro Slide #3</h3>
+							<p>Lorem ipsum dolor sit amet.</p> -->
+						</div>
+					</div>
+				</div>
+				<!-- Controles -->
+				<a href="#carousel-1" class="left carousel-control" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Anterior</span>
+				</a>
+				<a href="#carousel-1" class="right carousel-control" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Siguiente</span>
+				</a>
+			</div>
+		</div>
+</body>
+	<script src="boostrap-carusel/js/jquery-3.2.1.min.js"></script>
+	<script src="boostrap-carusel/js/bootstrap.min.js"></script>
+</html>
